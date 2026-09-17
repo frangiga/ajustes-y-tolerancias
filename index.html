@@ -9,8 +9,8 @@
             --bg-main: #030712;
             --card-bg-center: #0f172a;
             --card-bg-edge: #020617;
-            --accent-orange: #ff3300;
-            --accent-orange-glow: rgba(255, 51, 0, 0.75);
+            --accent-orange: #ff7700;
+            --accent-orange-glow: rgba(255, 119, 0, 0.75);
             --accent-blue: #00f0ff;
             --accent-blue-glow: rgba(0, 240, 255, 0.6);
             --text-light: #ffffff;
@@ -29,7 +29,7 @@
         body {
             background-color: var(--bg-main);
             background-image: 
-                radial-gradient(circle at 50% 10%, rgba(255, 51, 0, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 10%, rgba(255, 119, 0, 0.12) 0%, transparent 40%),
                 radial-gradient(circle at 50% 90%, rgba(0, 240, 255, 0.1) 0%, transparent 40%),
                 linear-gradient(to bottom, #030712, #000000);
             color: var(--text-light);
@@ -47,7 +47,7 @@
             width: 100%;
             max-width: 520px;
             border-radius: 28px;
-            box-shadow: 0 0 50px rgba(0, 240, 255, 0.15), 0 0 25px rgba(255, 51, 0, 0.2), inset 0 0 20px rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.15), 0 0 25px rgba(255, 119, 0, 0.22), inset 0 0 20px rgba(255, 255, 255, 0.08);
             border: 1.5px solid var(--border-color);
             padding: 26px;
             display: flex;
@@ -120,7 +120,7 @@
         }
 
         .calc-btn {
-            background: linear-gradient(135deg, #ff3300, #cc2900);
+            background: linear-gradient(135deg, #ff8800, #ff6600);
             color: #fff;
             border: none;
             padding: 15px;
@@ -241,30 +241,25 @@
     </div>
 
     <script>
-        // Función estándar ISO para calcular la unidad de tolerancia estándar i (micras) en función de D (mm)
         function obtenerIT(D, calidad) {
-            // D = sqrt(d1 * d2) aprox usando nominal
             const d = D;
-            let i = 0.45 * Math.cbrt(d) + 0.001 * d; // en micras
+            let i = 0.45 * Math.cbrt(d) + 0.001 * d; 
 
             let factor = 1;
             switch(calidad) {
-                // IT6 = 10i, IT7 = 16i, IT8 = 25i, IT9 = 40i, etc.
                 case 6: factor = 10; break;
                 case 7: factor = 16; break;
                 case 8: factor = 25; break;
                 case 9: factor = 40; break;
                 case 5: factor = 6; break;
                 case 10: factor = 64; break;
-                default: factor = 16; // por defecto IT7
+                default: factor = 16; 
             }
-            return (i * factor) / 1000; // Devuelve en milímetros
+            return (i * factor) / 1000; 
         }
 
         function calcularTolerancias() {
             const rawText = document.getElementById('input-data').value.trim();
-            
-            // Expresión regular para separar número (nominal) y texto de tolerancia (ej: "50 H7", "30.5js6")
             const match = rawText.match(/^([0-9]+[.,]?[0-9]*)\s*([a-zA-Z]+[0-9]+)$/);
 
             if (!match) {
@@ -283,35 +278,28 @@
                 return;
             }
 
-            const IT = obtenerIT(nominal, calidad); // Tolerancia fundamental en mm
+            const IT = obtenerIT(nominal, calidad); 
             let supMm = 0;
             let infMm = 0;
 
-            // Verificación estricta y cálculo de desviaciones según normas ISO para agujeros (Mayúsculas) y ejes (Minúsculas)
             if (letra === 'H') {
-                // Agujero H: límite inferior es 0, superior es +IT
                 infMm = 0.000;
                 supMm = IT;
             } else if (letraLower === 'h') {
-                // Eje h: límite superior es 0, inferior es -IT
                 supMm = 0.000;
                 infMm = -IT;
             } else if (letraLower === 'js') {
-                // Eje/Agujero JS o js: Simétrico con respecto a la línea cero (+IT/2 y -IT/2) de manera rigurosa y exacta
                 supMm = IT / 2;
                 infMm = -(IT / 2);
             } else if (letraLower === 'g') {
-                // Eje g (juego): Desviación fundamental negativa estimada
-                const es = (0.5 * Math.pow(nominal, 0.34)) / 1000; // aproximación norma
+                const es = (0.5 * Math.pow(nominal, 0.34)) / 1000; 
                 supMm = -Math.max(0.002, es);
                 infMm = supMm - IT;
             } else if (letraLower === 'p') {
-                // Eje p (apriete)
-                const es = IT; // aproximación genérica segura
+                const es = IT; 
                 supMm = es + (IT * 0.4); 
                 infMm = supMm - IT;
             } else {
-                // Comportamiento genérico dinámico validado para otras letras si se introducen
                 if (letra === letra.toUpperCase()) {
                     infMm = 0.010;
                     supMm = infMm + IT;
@@ -325,7 +313,6 @@
             const limiteMin = nominal + infMm;
             const toleranciaTotal = Math.abs(limiteMax - limiteMin);
 
-            // Mostrar resultados validados y perfectamente centrados
             document.getElementById('res-nominal').innerText = nominal.toFixed(3) + " mm";
             document.getElementById('res-tipo').innerText = ajusteCompleto;
             document.getElementById('res-max').innerText = limiteMax.toFixed(3) + " mm";
