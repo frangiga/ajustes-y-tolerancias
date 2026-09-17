@@ -47,18 +47,17 @@
 
         .quiz-container {
             background: radial-gradient(circle at center, var(--card-bg-center) 0%, var(--card-bg-edge) 100%);
-            width: 92%;
-            max-width: 480px;
-            max-height: 96vh;
-            max-height: 96dvh;
-            border-radius: 24px;
+            width: 94%;
+            max-width: 440px;
+            border-radius: 20px;
             box-shadow: 0 0 40px rgba(0, 240, 255, 0.15), 0 0 20px rgba(255, 119, 0, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.08);
             border: 1.5px solid var(--border-color);
-            padding: 18px 20px;
+            padding: 14px 16px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            gap: 10px;
         }
 
         .top-section {
@@ -66,12 +65,11 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            margin-bottom: 8px;
         }
 
         .title-main {
             color: var(--accent-orange);
-            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            font-size: clamp(1.2rem, 4.5vw, 1.45rem);
             text-transform: uppercase;
             font-weight: 900;
             text-shadow: 0 0 12px var(--accent-orange-glow);
@@ -90,14 +88,14 @@
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
             width: 100%;
             align-items: center;
         }
 
         label {
             color: var(--accent-blue);
-            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            font-size: clamp(0.78rem, 2.3vw, 0.88rem);
             font-weight: 700;
             text-shadow: 0 0 6px var(--accent-blue-glow);
             width: 100%;
@@ -109,7 +107,7 @@
             background-color: rgba(3, 7, 18, 0.9);
             border: 1.5px solid var(--border-color);
             color: var(--text-light);
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 1.1rem;
             font-weight: 600;
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.6);
@@ -127,9 +125,9 @@
             background: linear-gradient(135deg, #ff8800, #ff6600);
             color: #fff;
             border: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 1rem;
+            padding: 11px;
+            border-radius: 10px;
+            font-size: 0.95rem;
             font-weight: 900;
             cursor: pointer;
             width: 100%;
@@ -152,16 +150,16 @@
             background: rgba(3, 7, 18, 0.95);
             border: 1.5px solid var(--border-color);
             border-left: 4px solid var(--accent-orange);
-            padding: 12px 14px;
-            border-radius: 14px;
+            padding: 10px 12px;
+            border-radius: 12px;
             box-shadow: inset 0 0 12px rgba(0,0,0,0.7), 0 0 10px rgba(0, 240, 255, 0.05);
             width: 100%;
         }
 
         .results-box h3 {
             color: var(--accent-blue);
-            font-size: 0.95rem;
-            margin-bottom: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             text-shadow: 0 0 6px var(--accent-blue-glow);
@@ -171,8 +169,8 @@
         .result-row {
             display: flex;
             flex-direction: column;
-            margin-bottom: 6px;
-            font-size: 0.85rem;
+            margin-bottom: 5px;
+            font-size: 0.82rem;
             color: var(--text-muted);
             align-items: center;
             width: 100%;
@@ -196,10 +194,9 @@
 
         .app-footer {
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             color: var(--text-muted);
-            margin-top: 6px;
-            padding-top: 6px;
+            padding-top: 4px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             width: 100%;
         }
