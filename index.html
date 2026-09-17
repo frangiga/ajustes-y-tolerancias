@@ -2,199 +2,369 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Calculadora de Ajustes y Tolerancias CNC</title>
     <style>
         :root {
-            --bg-color: #0b0c10;
-            --panel-bg: #1f2833;
-            --text-main: #c5c6c7;
-            --accent-blue: #66fcf1;
-            --accent-orange: #ff5722;
-            --border-color: #45a29e;
+            --bg-main: #060e1a;
+            --card-bg-center: #162b4d;
+            --card-bg-edge: #0b172a;
+            --accent-yellow: #ffd600;
+            --accent-yellow-glow: rgba(255, 214, 0, 0.6);
+            --accent-blue: #00b4d8;
+            --accent-blue-glow: rgba(0, 180, 216, 0.5);
+            --text-light: #f8f9fa;
+            --text-muted: #94a3b8;
+            --correct: #00e676;
+            --correct-glow: rgba(0, 230, 118, 0.6);
+            --incorrect: #ff1744;
+            --incorrect-glow: rgba(255, 23, 68, 0.6);
+            --btn-bg: rgba(23, 42, 69, 0.85);
+            --border-color: rgba(0, 180, 216, 0.4);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            padding: 20px;
+            background-color: var(--bg-main);
+            background-image: radial-gradient(circle at center, #102a45 0%, #040914 100%);
+            color: var(--text-light);
+            min-height: 100dvh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            overflow-y: auto;
+        }
+
+        .quiz-container {
+            background: radial-gradient(circle at center, var(--card-bg-center) 0%, var(--card-bg-edge) 100%);
+            width: 100%;
+            max-width: 520px;
+            border-radius: 24px;
+            box-shadow: 0 0 35px rgba(0, 180, 216, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .top-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 16px;
         }
 
-        header {
-            margin-bottom: 25px;
+        .title-main {
+            color: var(--accent-yellow);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            text-align: center;
+            font-weight: 800;
+            text-shadow: 0 0 10px var(--accent-yellow-glow);
+            letter-spacing: 0.5px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            align-self: center;
+            background: rgba(0, 180, 216, 0.2);
+            color: #38bdf8;
+            border: 1.5px solid #38bdf8;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            box-shadow: 0 0 15px var(--accent-blue-glow), inset 0 0 8px rgba(0, 180, 216, 0.3);
+            text-shadow: 0 0 8px var(--accent-blue-glow);
             text-align: center;
         }
 
-        h1 {
-            color: var(--accent-blue);
-            font-size: 1.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .container {
-            background-color: var(--panel-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            padding: 25px;
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
             width: 100%;
-            max-width: 600px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
         }
 
         .form-group {
-            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
         label {
-            display: block;
-            margin-bottom: 8px;
             color: var(--accent-blue);
-            font-weight: bold;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-shadow: 0 0 6px var(--accent-blue-glow);
         }
 
         input, select {
             width: 100%;
-            padding: 12px;
-            background-color: #0b0c10;
+            padding: 12px 14px;
+            background-color: rgba(6, 14, 26, 0.8);
             border: 1px solid var(--border-color);
-            color: #ffffff;
-            border-radius: 4px;
+            color: var(--text-light);
+            border-radius: 12px;
             font-size: 1rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         input:focus, select:focus {
-            outline: none;
-            border-color: var(--accent-orange);
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 10px var(--accent-yellow-glow), inset 0 2px 4px rgba(0,0,0,0.4);
         }
 
-        button {
-            width: 100%;
-            padding: 14px;
-            background-color: var(--accent-orange);
-            color: #ffffff;
+        .row-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .calc-btn {
+            background-color: var(--accent-yellow);
+            color: #000;
             border: none;
-            border-radius: 4px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            text-transform: uppercase;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 1.05rem;
+            font-weight: 800;
             cursor: pointer;
-            transition: background 0.2s;
+            width: 100%;
+            margin-top: 6px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px var(--accent-yellow-glow);
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
         }
 
-        button:hover {
-            background-color: #e64a19;
+        .calc-btn:active {
+            transform: scale(0.98);
         }
 
-        .results {
-            margin-top: 25px;
-            background-color: #0b0c10;
-            border-left: 4px solid var(--accent-orange);
-            padding: 15px;
-            border-radius: 4px;
+        .results-box {
+            margin-top: 18px;
+            background: rgba(6, 14, 26, 0.9);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-yellow);
+            padding: 16px;
+            border-radius: 14px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
         }
 
-        .results h3 {
+        .results-box h3 {
             color: var(--accent-blue);
+            font-size: 1rem;
             margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .result-row {
             display: flex;
             justify-content: space-between;
             margin-bottom: 8px;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
         }
 
-        .highlight {
-            color: var(--accent-orange);
-            font-weight: bold;
+        .result-row span:last-child {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .highlight-val {
+            color: var(--accent-yellow) !important;
+            font-weight: 800 !important;
+            text-shadow: 0 0 8px var(--accent-yellow-glow);
+        }
+
+        .app-footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 20px;
+            padding-top: 6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .app-footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .app-footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Ajustes y Tolerancias CNC</h1>
-        <p>Consulta rápida ISO para mecanizado</p>
-    </header>
-
-    <div class="container">
-        <div class="form-group">
-            <label for="nominal">Diámetro Nominal (mm):</label>
-            <input type="number" id="nominal" placeholder="Ej. 50" step="0.01">
+    <div class="quiz-container">
+        <div class="top-section">
+            <h1 class="title-main">Ajustes y Tolerancias CNC</h1>
+            <span class="category-badge">Módulo de Mecanizado ISO</span>
         </div>
 
-        <div class="form-group">
-            <label for="tolerance">Tipo de Ajuste / Tolerancia:</label>
-            <select id="tolerance">
-                <optgroup label="Agujeros">
-                    <option value="H7">H7 (Agujero H estándar)</option>
-                    <option value="H8">H8 (Agujero H holgado)</option>
-                </optgroup>
-                <optgroup label="Ejes">
-                    <option value="g6">g6 (Juego)</option>
-                    <option value="h6">h6 (Neutro / Fino)</option>
-                    <option value="p6">p6 (Interferencia)</option>
-                </optgroup>
-            </select>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="nominal">Diámetro Nominal (mm):</label>
+                <input type="number" id="nominal" placeholder="Ej. 50.00" step="0.001">
+            </div>
+
+            <div class="form-group">
+                <label for="tolerance-type">Tipo de Ajuste ISO / Calidad:</label>
+                <select id="tolerance-type">
+                    <optgroup label="Agujeros (Mayúsculas)">
+                        <option value="H7">H7 (Estándar)</option>
+                        <option value="H8">H8 (Holgado)</option>
+                        <option value="H6">H6 (Precisión)</option>
+                    </optgroup>
+                    <optgroup label="Ejes (Minúsculas)">
+                        <option value="h6">h6 (Neutro / Fino)</option>
+                        <option value="g6">g6 (Juego libre)</option>
+                        <option value="p6">p6 (Interferencia)</option>
+                        <option value="js6">js6 (Simétrico)</option>
+                    </optgroup>
+                    <option value="custom">Personalizado (Introducir tolerancias manuales)</option>
+                </select>
+            </div>
+
+            <!-- Campos dinámicos si se elige personalizado -->
+            <div id="custom-inputs" class="row-inputs" style="display: none;">
+                <div class="form-group">
+                    <label for="sup-tol">Sup. (µm o mm):</label>
+                    <input type="number" id="sup-tol" placeholder="+30" step="0.001">
+                </div>
+                <div class="form-group">
+                    <label for="inf-tol">Inf. (µm o mm):</label>
+                    <input type="number" id="inf-tol" placeholder="0" step="0.001">
+                </div>
+            </div>
+
+            <button class="calc-btn" onclick="calcularTolerancias()">Calcular Cotas</button>
+
+            <div class="results-box" id="results">
+                <h3>Resultados del Cálculo</h3>
+                <div class="result-row"><span>Medida Nominal:</span> <span id="res-nominal">-</span></div>
+                <div class="result-row"><span>Límite Máximo:</span> <span id="res-max" class="highlight-val">-</span></div>
+                <div class="result-row"><span>Límite Mínimo:</span> <span id="res-min" class="highlight-val">-</span></div>
+                <div class="result-row"><span>Dispersión / Tolerancia:</span> <span id="res-diff">-</span></div>
+                <div class="result-row"><span>Condición de Ajuste:</span> <span id="res-cond">-</span></div>
+            </div>
         </div>
 
-        <button onclick="calcularTolerancia()">Calcular Límites</button>
-
-        <div class="results" id="output">
-            <h3>Resultado:</h3>
-            <div class="result-row"><span>Medida Nominal:</span> <span id="resNominal">-</span></div>
-            <div class="result-row"><span>Límite Máximo:</span> <span id="resMax" class="highlight">-</span></div>
-            <div class="result-row"><span>Límite Mínimo:</span> <span id="resMin" class="highlight">-</span></div>
-            <div class="result-row"><span>Tipo de Ajuste:</span> <span id="resTipo">-</span></div>
-        </div>
+        <footer class="app-footer">
+            Desarrollado por <a href="https://www.instagram.com/fran_giga/" target="_blank" rel="noopener noreferrer">fran_giga</a>
+        </footer>
     </div>
 
     <script>
-        function calcularTolerancia() {
+        const tolSelect = document.getElementById('tolerance-type');
+        const customInputs = document.getElementById('custom-inputs');
+
+        tolSelect.addEventListener('change', function() {
+            if (this.value === 'custom') {
+                customInputs.style.display = 'grid';
+            } else {
+                customInputs.style.display = 'none';
+            }
+        });
+
+        function calcularTolerancias() {
             const nominal = parseFloat(document.getElementById('nominal').value);
-            const tol = document.getElementById('tolerance').value;
+            const type = tolSelect.value;
 
             if (isNaN(nominal) || nominal <= 0) {
                 alert("Por favor, introduce un diámetro nominal válido.");
                 return;
             }
 
-            // Ejemplo básico de lógica de cálculo/aproximación (Se puede ampliar con tablas ISO reales)
-            let sup = 0;
-            let inf = 0;
+            let supMm = 0;
+            let infMm = 0;
+            let condicion = "Estándar";
 
-            if (tol === 'H7') {
-                // Simplificación lógica básica para ejemplo (depende de rangos ISO 286 reales)
-                sup = nominal + 0.030; 
-                inf = nominal;
-            } else if (tol === 'h6') {
-                sup = nominal;
-                inf = nominal - 0.016;
-            } else if (tol === 'g6') {
-                sup = nominal - 0.009;
-                inf = nominal - 0.025;
-            } else if (tol === 'p6') {
-                sup = nominal + 0.026;
-                inf = nominal + 0.010;
+            if (type === 'custom') {
+                const supInput = parseFloat(document.getElementById('sup-tol').value);
+                const infInput = parseFloat(document.getElementById('inf-tol').value);
+                
+                if (isNaN(supInput) || isNaN(infInput)) {
+                    alert("Introduce los valores superior e inferior para el modo personalizado.");
+                    return;
+                }
+                // Asumimos entrada en milímetros o conversión si se prefiere (aquí directo en mm)
+                supMm = supInput > 1 ? supInput / 1000 : supInput; // Flexibilidad si meten micras o milímetros
+                infMm = infInput > 1 ? infInput / 1000 : infInput;
+                condicion = "Personalizado";
+            } else {
+                // Estimaciones de base según tablas ISO estándar de referencia rápida
+                // (Se pueden ajustar con fórmulas completas de la norma ISO 286 según el rango de diámetros)
+                switch(type) {
+                    let d = nominal;
+                    case 'H7':
+                        supMm = 0.030; // Ajustado aproximado para diámetros medios
+                        infMm = 0.000;
+                        condicion = "Agujero (Juego / Transición)";
+                        break;
+                    case 'H8':
+                        supMm = 0.046;
+                        infMm = 0.000;
+                        condicion = "Agujero Holgado";
+                        break;
+                    case 'H6':
+                        supMm = 0.019;
+                        infMm = 0.000;
+                        condicion = "Agujero Fino de Precisión";
+                        break;
+                    case 'h6':
+                        supMm = 0.000;
+                        infMm = -0.016;
+                        condicion = "Eje Neutro / Fino";
+                        break;
+                    case 'g6':
+                        supMm = -0.009;
+                        infMm = -0.025;
+                        condicion = "Eje con Juego";
+                        break;
+                    case 'p6':
+                        supMm = 0.026;
+                        infMm = 0.010;
+                        condicion = "Eje con Interferencia (Ajuste Forzado)";
+                        break;
+                    case 'js6':
+                        supMm = 0.008;
+                        infMm = -0.008;
+                        condicion = "Simétrico (Neutro)";
+                        break;
+                }
             }
 
-            document.getElementById('resNominal').innerText = nominal.toFixed(3) + " mm";
-            document.getElementById('resMax').innerText = sup.toFixed(3) + " mm";
-            document.getElementById('resMin').innerText = inf.toFixed(3) + " mm";
-            document.getElementById('resTipo').innerText = tol;
+            const limiteMax = nominal + supMm;
+            const limiteMin = nominal + infMm;
+            const toleranciaTotal = Math.abs(limiteMax - limiteMin);
+
+            // Mostrar resultados en pantalla
+            document.getElementById('res-nominal').innerText = nominal.toFixed(3) + " mm";
+            document.getElementById('res-max').innerText = limiteMax.toFixed(3) + " mm";
+            document.getElementById('res-min').innerText = limiteMin.toFixed(3) + " mm";
+            document.getElementById('res-diff').innerText = (toleranciaTotal * 1000).toFixed(1) + " µm (" + toleranciaTotal.toFixed(3) + " mm)";
+            document.getElementById('res-cond').innerText = condicion;
         }
     </script>
 </body>
