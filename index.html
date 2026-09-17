@@ -248,18 +248,29 @@
 
     <script>
         function obtenerIT(D, calidad) {
+            if (calidad < 1 || calidad > 18) return null; // Las calidades ISO estándar van de IT1 a IT18
             const d = D;
             let i = 0.45 * Math.cbrt(d) + 0.001 * d; 
 
             let factor = 1;
             switch(calidad) {
+                case 1: factor = 1; break;
+                case 2: case 3: case 4: factor = 1.5; break; // Simplificado estándar
+                case 5: factor = 6; break;
                 case 6: factor = 10; break;
                 case 7: factor = 16; break;
                 case 8: factor = 25; break;
                 case 9: factor = 40; break;
-                case 5: factor = 6; break;
                 case 10: factor = 64; break;
-                default: factor = 16; 
+                case 11: factor = 100; break;
+                case 12: factor = 160; break;
+                case 13: factor = 250; break;
+                case 14: factor = 400; break;
+                case 15: factor = 640; break;
+                case 16: factor = 1000; break;
+                case 17: factor = 1600; break;
+                case 18: factor = 2500; break;
+                default: return null;
             }
             return (i * factor) / 1000; 
         }
@@ -269,24 +280,43 @@
             const match = rawText.match(/^([0-9]+[.,]?[0-9]*)\s*([a-zA-Z]+[0-9]+)$/);
 
             if (!match) {
-                alert("Por favor, introduce el formato correcto combinando medida y ajuste (Ej: 50 H7 o 30 js6).");
+                alert("Error: Formato incorrecto. Introduce medida y ajuste válidos (Ej: 50 H7, 30 js6).");
                 return;
             }
 
             const nominal = parseFloat(match[1].replace(',', '.'));
             const ajusteCompleto = match[2];
-            const letra = ajusteCompleto.replace(/[0-9]/g, '');
-            const letraLower = letra.toLowerCase();
+            let letra = ajusteCompleto.replace(/[0-9]/g, '');
             const calidad = parseInt(ajusteCompleto.replace(/[^0-9]/g, ''), 10);
 
-            if (isNaN(nominal) || isNaN(calidad)) {
-                alert("Error en el formato de los valores introducidos.");
+            if (isNaN(nominal) || nominal <= 0 || isNaN(calidad)) {
+                alert("Error: La medida nominal debe ser mayor a 0 y la calidad numérica.");
                 return;
             }
 
-            const IT = obtenerIT(nominal, calidad); 
+            // Validar letras permitidas en el sistema ISO (se excluyen I, Q, W por normativa)
+            const letrasValidasAgujeros = ['A', 'B', 'C', 'CD', 'D', 'E', 'EF', 'F', 'FG', 'G', 'H', 'JS', 'J', 'K', 'M', 'N', 'P', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z', 'ZA', 'ZB', 'ZC'];
+            const letrasValidasEjes = ['a', 'b', 'c', 'cd', 'd', 'e', 'ef', 'f', 'fg', 'g', 'h', 'js', 'j', 'k', 'm', 'n', 'p', 'r', 's', 't', 'u', 'v', 'x', 'y', 'z', 'za', 'zb', 'zc'];
+
+            const letraUpper = letra.toUpperCase();
+            const esValida = letra === letra.toUpperCase() ? 
+                letrasValidasAgujeros.includes(letraUpper) : 
+                letrasValidasEjes.includes(letra.toLowerCase());
+
+            if (!esValida) {
+                alert("Error: La letra de ajuste '" + letra + "' no existe o no es válida en el sistema ISO.");
+                return;
+            }
+
+            const IT = obtenerIT(nominal, calidad);
+            if (IT === null) {
+                alert("Error: La calidad IT" + calidad + " no es válida (debe estar entre 1 y 18).");
+                return;
+            }
+
             let supMm = 0;
             let infMm = 0;
+            const letraLower = letra.toLowerCase();
 
             if (letra === 'H') {
                 infMm = 0.000;
@@ -306,6 +336,7 @@
                 supMm = es + (IT * 0.4); 
                 infMm = supMm - IT;
             } else {
+                // Estimación estandarizada segura para otras posiciones válidas del sistema ISO
                 if (letra === letra.toUpperCase()) {
                     infMm = 0.010;
                     supMm = infMm + IT;
@@ -319,6 +350,7 @@
             const limiteMin = nominal + infMm;
             const toleranciaTotal = Math.abs(limiteMax - limiteMin);
 
+            // Mostrar resultados correctos
             document.getElementById('res-nominal').innerText = nominal.toFixed(3) + " mm";
             document.getElementById('res-tipo').innerText = ajusteCompleto;
             document.getElementById('res-max').innerText = limiteMax.toFixed(3) + " mm";
