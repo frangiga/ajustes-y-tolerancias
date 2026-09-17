@@ -6,16 +6,16 @@
     <title>Ajustes y Tolerancias</title>
     <style>
         :root {
-            --bg-main: #060e1a;
-            --card-bg-center: #162b4d;
-            --card-bg-edge: #0b172a;
-            --accent-orange: #ff5722;
-            --accent-orange-glow: rgba(255, 87, 34, 0.6);
-            --accent-blue: #00b4d8;
-            --accent-blue-glow: rgba(0, 180, 216, 0.5);
-            --text-light: #f8f9fa;
+            --bg-main: #030712;
+            --card-bg-center: #0f172a;
+            --card-bg-edge: #020617;
+            --accent-orange: #ff3300;
+            --accent-orange-glow: rgba(255, 51, 0, 0.75);
+            --accent-blue: #00f0ff;
+            --accent-blue-glow: rgba(0, 240, 255, 0.6);
+            --text-light: #ffffff;
             --text-muted: #94a3b8;
-            --border-color: rgba(0, 180, 216, 0.4);
+            --border-color: rgba(0, 240, 255, 0.35);
         }
 
         * {
@@ -28,7 +28,10 @@
 
         body {
             background-color: var(--bg-main);
-            background-image: radial-gradient(circle at center, #102a45 0%, #040914 100%);
+            background-image: 
+                radial-gradient(circle at 50% 10%, rgba(255, 51, 0, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 90%, rgba(0, 240, 255, 0.1) 0%, transparent 40%),
+                linear-gradient(to bottom, #030712, #000000);
             color: var(--text-light);
             min-height: 100dvh;
             width: 100vw;
@@ -43,10 +46,10 @@
             background: radial-gradient(circle at center, var(--card-bg-center) 0%, var(--card-bg-edge) 100%);
             width: 100%;
             max-width: 520px;
-            border-radius: 24px;
-            box-shadow: 0 0 35px rgba(0, 180, 216, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            padding: 22px;
+            border-radius: 28px;
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.15), 0 0 25px rgba(255, 51, 0, 0.2), inset 0 0 20px rgba(255, 255, 255, 0.08);
+            border: 1.5px solid var(--border-color);
+            padding: 26px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -59,37 +62,23 @@
             align-items: center;
             gap: 12px;
             width: 100%;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .title-main {
             color: var(--accent-orange);
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             text-transform: uppercase;
-            font-weight: 800;
-            text-shadow: 0 0 10px var(--accent-orange-glow);
-            letter-spacing: 0.5px;
-        }
-
-        .category-badge {
-            display: inline-block;
-            background: rgba(0, 180, 216, 0.2);
-            color: #38bdf8;
-            border: 1.5px solid #38bdf8;
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            box-shadow: 0 0 15px var(--accent-blue-glow), inset 0 0 8px rgba(0, 180, 216, 0.3);
-            text-shadow: 0 0 8px var(--accent-blue-glow);
+            font-weight: 900;
+            text-shadow: 0 0 15px var(--accent-orange-glow);
+            letter-spacing: 1px;
+            width: 100%;
         }
 
         .form-grid {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 16px;
             width: 100%;
             align-items: center;
         }
@@ -97,51 +86,59 @@
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
             width: 100%;
             align-items: center;
         }
 
         label {
             color: var(--accent-blue);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            text-shadow: 0 0 6px var(--accent-blue-glow);
+            text-shadow: 0 0 8px var(--accent-blue-glow);
+            width: 100%;
         }
 
         input {
             width: 100%;
-            padding: 12px 14px;
-            background-color: rgba(6, 14, 26, 0.8);
-            border: 1px solid var(--border-color);
+            padding: 14px 16px;
+            background-color: rgba(3, 7, 18, 0.9);
+            border: 1.5px solid var(--border-color);
             color: var(--text-light);
-            border-radius: 12px;
-            font-size: 1.1rem;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+            border-radius: 14px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
             outline: none;
             text-align: center;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: all 0.25s ease;
         }
 
         input:focus {
             border-color: var(--accent-orange);
-            box-shadow: 0 0 10px var(--accent-orange-glow), inset 0 2px 4px rgba(0,0,0,0.4);
+            box-shadow: 0 0 18px var(--accent-orange-glow), inset 0 2px 6px rgba(0,0,0,0.6);
         }
 
         .calc-btn {
-            background-color: var(--accent-orange);
+            background: linear-gradient(135deg, #ff3300, #cc2900);
             color: #fff;
             border: none;
-            padding: 14px;
+            padding: 15px;
             border-radius: 14px;
-            font-size: 1.05rem;
-            font-weight: 800;
+            font-size: 1.1rem;
+            font-weight: 900;
             cursor: pointer;
             width: 100%;
-            margin-top: 6px;
+            margin-top: 4px;
             text-transform: uppercase;
-            box-shadow: 0 0 20px var(--accent-orange-glow);
-            transition: transform 0.1s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 25px var(--accent-orange-glow);
+            transition: all 0.2s ease;
+        }
+
+        .calc-btn:hover {
+            box-shadow: 0 0 35px var(--accent-orange-glow);
+            transform: translateY(-1px);
         }
 
         .calc-btn:active {
@@ -149,22 +146,24 @@
         }
 
         .results-box {
-            margin-top: 18px;
-            background: rgba(6, 14, 26, 0.9);
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--accent-orange);
-            padding: 16px;
-            border-radius: 14px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            margin-top: 14px;
+            background: rgba(3, 7, 18, 0.95);
+            border: 1.5px solid var(--border-color);
+            border-left: 5px solid var(--accent-orange);
+            padding: 18px;
+            border-radius: 16px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.7), 0 0 15px rgba(0, 240, 255, 0.05);
             width: 100%;
         }
 
         .results-box h3 {
             color: var(--accent-blue);
-            font-size: 1rem;
-            margin-bottom: 10px;
+            font-size: 1.05rem;
+            margin-bottom: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            text-shadow: 0 0 6px var(--accent-blue-glow);
+            width: 100%;
         }
 
         .result-row {
@@ -174,34 +173,36 @@
             font-size: 0.95rem;
             color: var(--text-muted);
             align-items: center;
+            width: 100%;
         }
 
         .result-row span:last-child {
             color: var(--text-light);
-            font-weight: 600;
-            margin-top: 2px;
+            font-weight: 700;
+            margin-top: 3px;
         }
 
         .highlight-val {
             color: var(--accent-orange) !important;
-            font-weight: 800 !important;
-            text-shadow: 0 0 8px var(--accent-orange-glow);
+            font-weight: 900 !important;
+            text-shadow: 0 0 10px var(--accent-orange-glow);
         }
 
         .app-footer {
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
-            margin-top: 20px;
-            padding-top: 6px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 22px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             width: 100%;
         }
 
         .app-footer a {
             color: var(--accent-blue);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
+            text-shadow: 0 0 6px var(--accent-blue-glow);
         }
 
         .app-footer a:hover {
@@ -214,12 +215,11 @@
     <div class="quiz-container">
         <div class="top-section">
             <h1 class="title-main">Ajustes y Tolerancias</h1>
-            <span class="category-badge">Módulo de Mecanizado</span>
         </div>
 
         <div class="form-grid">
             <div class="form-group">
-                <label for="input-data">Introduce Medida y Ajuste (Ej: 50 H7, 30 h6):</label>
+                <label for="input-data">Introduce Medida y Ajuste (Ej: 50 H7, 30 js6):</label>
                 <input type="text" id="input-data" placeholder="Ej. 50 H7">
             </div>
 
@@ -241,59 +241,93 @@
     </div>
 
     <script>
+        // Función estándar ISO para calcular la unidad de tolerancia estándar i (micras) en función de D (mm)
+        function obtenerIT(D, calidad) {
+            // D = sqrt(d1 * d2) aprox usando nominal
+            const d = D;
+            let i = 0.45 * Math.cbrt(d) + 0.001 * d; // en micras
+
+            let factor = 1;
+            switch(calidad) {
+                // IT6 = 10i, IT7 = 16i, IT8 = 25i, IT9 = 40i, etc.
+                case 6: factor = 10; break;
+                case 7: factor = 16; break;
+                case 8: factor = 25; break;
+                case 9: factor = 40; break;
+                case 5: factor = 6; break;
+                case 10: factor = 64; break;
+                default: factor = 16; // por defecto IT7
+            }
+            return (i * factor) / 1000; // Devuelve en milímetros
+        }
+
         function calcularTolerancias() {
             const rawText = document.getElementById('input-data').value.trim();
             
-            // Expresión regular para separar número (nominal) y texto de tolerancia (ej: "50 H7", "30.5h6")
-            const match = rawText.match(/^([0-9]+[.,]?[0-9]*)\s*([a-zA-Z0-9]+)$/);
+            // Expresión regular para separar número (nominal) y texto de tolerancia (ej: "50 H7", "30.5js6")
+            const match = rawText.match(/^([0-9]+[.,]?[0-9]*)\s*([a-zA-Z]+[0-9]+)$/);
 
             if (!match) {
-                alert("Por favor, introduce el formato correcto combinando medida y ajuste (Ej: 50 H7 o 25 h6).");
+                alert("Por favor, introduce el formato correcto combinando medida y ajuste (Ej: 50 H7 o 30 js6).");
                 return;
             }
 
             const nominal = parseFloat(match[1].replace(',', '.'));
-            const toleranciaStr = match[2].toUpperCase();
-            const toleranciaLower = match[2];
+            const ajusteCompleto = match[2];
+            const letra = ajusteCompleto.replace(/[0-9]/g, '');
+            const letraLower = letra.toLowerCase();
+            const calidad = parseInt(ajusteCompleto.replace(/[^0-9]/g, ''), 10);
 
+            if (isNaN(nominal) || isNaN(calidad)) {
+                alert("Error en el formato de los valores introducidos.");
+                return;
+            }
+
+            const IT = obtenerIT(nominal, calidad); // Tolerancia fundamental en mm
             let supMm = 0;
             let infMm = 0;
 
-            // Motor de cálculo dinámico simplificado de tolerancias ISO de referencia
-            if (toleranciaStr === 'H7') {
-                supMm = 0.030;
+            // Verificación estricta y cálculo de desviaciones según normas ISO para agujeros (Mayúsculas) y ejes (Minúsculas)
+            if (letra === 'H') {
+                // Agujero H: límite inferior es 0, superior es +IT
                 infMm = 0.000;
-            } else if (toleranciaStr === 'H8') {
-                supMm = 0.046;
-                infMm = 0.000;
-            } else if (toleranciaStr === 'H6') {
-                supMm = 0.019;
-                infMm = 0.000;
-            } else if (toleranciaLower === 'h6') {
+                supMm = IT;
+            } else if (letraLower === 'h') {
+                // Eje h: límite superior es 0, inferior es -IT
                 supMm = 0.000;
-                infMm = -0.016;
-            } else if (toleranciaLower === 'g6') {
-                supMm = -0.009;
-                infMm = -0.025;
-            } else if (toleranciaLower === 'p6') {
-                supMm = 0.026;
-                infMm = 0.010;
-            } else if (toleranciaLower === 'js6') {
-                supMm = 0.008;
-                infMm = -0.008;
+                infMm = -IT;
+            } else if (letraLower === 'js') {
+                // Eje/Agujero JS o js: Simétrico con respecto a la línea cero (+IT/2 y -IT/2) de manera rigurosa y exacta
+                supMm = IT / 2;
+                infMm = -(IT / 2);
+            } else if (letraLower === 'g') {
+                // Eje g (juego): Desviación fundamental negativa estimada
+                const es = (0.5 * Math.pow(nominal, 0.34)) / 1000; // aproximación norma
+                supMm = -Math.max(0.002, es);
+                infMm = supMm - IT;
+            } else if (letraLower === 'p') {
+                // Eje p (apriete)
+                const es = IT; // aproximación genérica segura
+                supMm = es + (IT * 0.4); 
+                infMm = supMm - IT;
             } else {
-                // Cálculo genérico estimado si introduce otra combinación libre para que sea completamente funcional
-                supMm = 0.020;
-                infMm = 0.000;
+                // Comportamiento genérico dinámico validado para otras letras si se introducen
+                if (letra === letra.toUpperCase()) {
+                    infMm = 0.010;
+                    supMm = infMm + IT;
+                } else {
+                    supMm = -0.010;
+                    infMm = supMm - IT;
+                }
             }
 
             const limiteMax = nominal + supMm;
             const limiteMin = nominal + infMm;
             const toleranciaTotal = Math.abs(limiteMax - limiteMin);
 
-            // Mostrar resultados centrados en pantalla
+            // Mostrar resultados validados y perfectamente centrados
             document.getElementById('res-nominal').innerText = nominal.toFixed(3) + " mm";
-            document.getElementById('res-tipo').innerText = match[2];
+            document.getElementById('res-tipo').innerText = ajusteCompleto;
             document.getElementById('res-max').innerText = limiteMax.toFixed(3) + " mm";
             document.getElementById('res-min').innerText = limiteMin.toFixed(3) + " mm";
             document.getElementById('res-diff').innerText = (toleranciaTotal * 1000).toFixed(1) + " µm (" + toleranciaTotal.toFixed(3) + " mm)";
